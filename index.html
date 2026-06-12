@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Moe-Kyaw-Aung-Portfolio V0012 — Android Senior Developer. A bold glasspunk portfolio and SaaS-style landing page built with pure HTML, CSS, and vanilla JavaScript." />
+  <meta name="keywords" content="Android Senior Developer, Flutter Developer, Kotlin, Jetpack Compose, Portfolio, SaaS Landing Page" />
+  <meta name="author" content="Moe-Kyaw-Aung" />
+  <meta name="theme-color" content="#d4a843" />
+  <meta property="og:title" content="Moe-Kyaw-Aung-Portfolio V0012" />
+  <meta property="og:description" content="Bold glasspunk portfolio landing page for an Android Senior Developer." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Moe-Kyaw-Aung-Portfolio V0012 | Android Senior Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --bg-soft:rgba(255,255,255,.72);
+      --bg-strong:rgba(255,255,255,.88);
+      --text:#1f2328;
+      --muted:#5f6570;
+      --card:rgba(255,255,255,.22);
+      --card-border:rgba(255,255,255,.38);
+      --shadow:0 20px 60px rgba(0,0,0,.12);
+      --accent:#d4a843;
+      --accent-2:#7c5cff;
+      --accent-3:#11c5bf;
+      --dark:#333333;
+      --ring:0 0 0 4px rgba(212,168,67,.18);
+      --radius:24px;
+      --radius-sm:16px;
+      --max:1200px;
+      --space:22px;
+      --space-sm:14px;
+      --space-lg:42px;
+      --transition:.28s ease;
+    }
+    [data-theme="dark"]{
+      --bg:#0e1014;
+      --bg-soft:rgba(14,16,20,.72);
+      --bg-strong:rgba(14,16,20,.92);
+      --text:#f5f7fa;
+      --muted:#a5adba;
+      --card:rgba(255,255,255,.06);
+      --card-border:rgba(255,255,255,.12);
+      --shadow:0 20px 60px rgba(0,0,0,.42);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Inter",system-ui,sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212,168,67,.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(124,92,255,.14), transparent 25%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    body.no-scroll{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input,textarea{font:inherit}
+    .container{width:min(var(--max),calc(100% - 32px));margin:0 auto}
+    .glass{
+      background:var(--card);
+      border:1px solid var(--card-border);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
+    .section{padding:26px 0}
+    .grid{display:grid;gap:20px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 20px;border-radius:999px;border:1px solid transparent;
+      background:linear-gradient(135deg,var(--accent),#f4d37a);
+      color:#1d1a12;font-weight:800;cursor:pointer;transition:transform var(--transition),box-shadow var(--transition),background var(--transition);
+      box-shadow:0 10px 30px rgba(212,168,67,.26)
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn.secondary{background:transparent;color:var(--text);border-color:var(--card-border)}
+    .btn.ghost{background:rgba(255,255,255,.06);color:var(--text)}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
+      background:rgba(212,168,67,.12);color:var(--accent);font-weight:700;font-size:.92rem;border:1px solid rgba(212,168,67,.18)
+    }
+    .topbar{
+      position:sticky;top:0;z-index:60;
+      background:linear-gradient(to bottom,var(--bg-strong),rgba(255,255,255,0));
+      border-bottom:1px solid var(--card-border)
+    }
+    .nav{
+      height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.3px}
+    .brand-mark{
+      width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;box-shadow:0 14px 34px rgba(124,92,255,.24)
+    }
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .icon-btn{
+      width:44px;height:44px;border-radius:14px;border:1px solid var(--card-border);
+      background:var(--card);color:var(--text);cursor:pointer
+    }
+    .hamburger{position:relative}
+    .drawer{
+      position:fixed;inset:0 0 0 auto;width:min(360px,92vw);transform:translateX(100%);
+      background:var(--bg-strong);backdrop-filter:blur(22px);border-left:1px solid var(--card-border);
+      z-index:80;padding:24px;transition:transform var(--transition)
+    }
+    .drawer.open{transform:translateX(0)}
+    .drawer-links{display:grid;gap:10px;margin-top:18px}
+    .drawer-links a,.drawer-links button{
+      padding:14px 16px;border-radius:16px;border:1px solid var(--card-border);background:var(--card);text-align:left
+    }
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.44);opacity:0;pointer-events:none;transition:opacity var(--transition);z-index:70
+    }
+    .overlay.show{opacity:1;pointer-events:auto}
+    .hero{position:relative;isolation:isolate;min-height:92vh;display:grid;align-items:center;padding:26px 0 18px}
+    .hero-canvas{position:absolute;inset:0;z-index:-2}
+    .hero::before,.hero::after{
+      content:"";position:absolute;inset:auto;z-index:-1;border-radius:50%;filter:blur(30px);opacity:.8
+    }
+    .hero::before{width:260px;height:260px;background:rgba(212,168,67,.18);top:8%;left:-6%}
+    .hero::after{width:320px;height:320px;background:rgba(17,197,191,.16);bottom:8%;right:-10%}
+    .hero-card{
+      padding:28px;border-radius:32px;border:1px solid var(--card-border);
+      background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.08))
+    }
+    .hero-grid{grid-template-columns:1.15fr .85fr;align-items:center}
+    .hero h1{font-size:clamp(2.4rem,6vw,5.8rem);line-height:.92;margin:14px 0 16px;font-weight:900;letter-spacing:-.04em}
+    .hero p{max-width:60ch;color:var(--muted);font-size:1.03rem;line-height:1.75}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .hero-panel{
+      padding:18px;border-radius:28px;background:linear-gradient(145deg,rgba(212,168,67,.11),rgba(124,92,255,.1));
+      border:1px solid var(--card-border)
+    }
+    .stats{grid-template-columns:repeat(4,1fr)}
+    .stat{padding:18px;border-radius:24px;text-align:center}
+    .stat b{display:block;font-size:2rem}
+    .stat span{color:var(--muted)}
+    .section-title{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}
+    .section-title h2{margin:0;font-size:clamp(1.5rem,3vw,2.4rem)}
+    .section-title p{margin:0;color:var(--muted);max-width:58ch}
+    .cards{grid-template-columns:repeat(3,1fr)}
+    .card{padding:22px;border-radius:28px}
+    .card h3{margin:14px 0 10px}
+    .card p{color:var(--muted);line-height:1.7}
+    .service-list{display:grid;gap:12px;margin-top:18px;padding:0;list-style:none}
+    .service-list li{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
+    .service-list i{color:var(--accent);margin-top:4px}
+    .parallax{
+      position:relative;overflow:hidden;border-radius:34px;padding:34px;background:
+        linear-gradient(135deg, rgba(212,168,67,.18), rgba(124,92,255,.12)),
+        var(--card)
+    }
+    .parallax .layer{position:absolute;inset:auto;opacity:.5;border-radius:999px;filter:blur(10px)}
+    .layer.a{width:140px;height:140px;background:rgba(212,168,67,.4);top:-24px;right:5%}
+    .layer.b{width:200px;height:200px;background:rgba(17,197,191,.32);bottom:-50px;left:8%}
+    .media-row{grid-template-columns:1.2fr .8fr}
+    .carousel{position:relative;overflow:hidden;border-radius:28px}
+    .slides{display:flex;transition:transform .45s ease}
+    .slide{min-width:100%;padding:24px}
+    .slide img{height:330px;width:100%;object-fit:cover;border-radius:22px}
+    .carousel-controls{position:absolute;inset:auto 16px 16px auto;display:flex;gap:10px}
+    .table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:26px}
+    .table th,.table td{padding:16px;border-bottom:1px solid var(--card-border);text-align:left}
+    .table th{background:rgba(212,168,67,.12)}
+    .price-grid{grid-template-columns:repeat(3,1fr)}
+    .price{padding:26px;border-radius:30px;position:relative}
+    .price.featured{transform:translateY(-8px);border:1px solid rgba(212,168,67,.35)}
+    .price .amount{font-size:2.7rem;font-weight:900}
+    .faq{display:grid;gap:12px}
+    .faq-item{border-radius:22px;overflow:hidden}
+    .faq button{
+      width:100%;padding:18px 18px;background:transparent;color:var(--text);border:0;text-align:left;font-weight:800;display:flex;justify-content:space-between;gap:14px
+    }
+    .faq-panel{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 18px}
+    .faq-item.open .faq-panel{max-height:220px;padding-bottom:18px}
+    .gallery{grid-template-columns:repeat(4,1fr)}
+    .gallery button{padding:0;border:0;background:none;cursor:pointer}
+    .gallery img{border-radius:22px;height:180px;width:100%;object-fit:cover}
+    .forms{grid-template-columns:1fr 1fr}
+    .form,.contact-card{padding:24px;border-radius:30px}
+    .field{display:grid;gap:8px;margin-bottom:14px}
+    .field input,.field textarea{
+      width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--card-border);
+      background:rgba(255,255,255,.06);color:var(--text)
+    }
+    .field input:focus,.field textarea:focus{outline:none;box-shadow:var(--ring)}
+    .helper{font-size:.92rem;color:var(--muted)}
+    .error{color:#ff6b6b;font-size:.92rem;min-height:1.2em}
+    .socials{display:flex;gap:10px;flex-wrap:wrap}
+    .socials a{
+      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      border:1px solid var(--card-border);background:var(--card)
+    }
+    .footer{
+      margin-top:24px;padding:30px 0 100px;border-top:1px solid var(--card-border)
+    }
+    .footer-grid{grid-template-columns:1.3fr 1fr 1fr 1fr}
+    .footer h4{margin:0 0 14px}
+    .footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;color:var(--muted)}
+    .footer-bottom{margin-top:24px;padding-top:18px;border-top:1px solid var(--card-border);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted)}
+    .back-top,.sticky-cta{
+      position:fixed;z-index:55;right:18px;border:0
+    }
+    .back-top{bottom:92px;opacity:0;pointer-events:none;transition:opacity var(--transition),transform var(--transition)}
+    .back-top.show{opacity:1;pointer-events:auto}
+    .sticky-cta{bottom:18px;left:18px;right:18px;padding:16px 18px;border-radius:18px;display:none;justify-content:center}
+    .preloader{
+      position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:opacity .4s ease,visibility .4s ease
+    }
+    .preloader.hide{opacity:0;visibility:hidden}
+    .spinner{
+      width:58px;height:58px;border-radius:50%;border:5px solid rgba(212,168,67,.18);border-top-color:var(--accent);animation:spin 1s linear infinite
+    }
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.show{opacity:1;transform:none}
+    .map{border:0;width:100%;height:320px;border-radius:24px}
+    .tooltip{position:relative}
+    .tooltip:hover::after{
+      content:attr(data-tip);position:absolute;left:50%;transform:translateX(-50%);bottom:110%;
+      white-space:nowrap;padding:8px 10px;border-radius:10px;background:var(--dark);color:white;font-size:.8rem
+    }
+    .lightbox{
+      position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;place-items:center;z-index:90;padding:18px
+    }
+    .lightbox.open{display:grid}
+    .lightbox img{max-width:min(1100px,95vw);max-height:84vh;border-radius:22px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width: 980px){
+      .hero-grid,.media-row,.forms,.footer-grid,.cards,.price-grid,.gallery,.stats{grid-template-columns:1fr 1fr}
+      .hero{min-height:auto}
+    }
+    @media (max-width: 720px){
+      .hero-grid,.media-row,.forms,.footer-grid,.cards,.price-grid,.gallery,.stats{grid-template-columns:1fr}
+      .section{padding:18px 0}
+      .sticky-cta{display:flex}
+      .desktop-only{display:none}
+      .hero h1{font-size:clamp(2.2rem,12vw,4rem)}
+    }
+  </style>
+</head>
+<body>
+  <div class="preloader" aria-hidden="true"><div class="spinner"></div></div>
+
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Moe-Kyaw-Aung-Portfolio V0012 home">
+        <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+        <span>Moe-Kyaw-Aung-Portfolio V0012</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn tooltip" id="themeToggle" aria-label="Toggle theme" data-tip="Theme"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Mobile navigation">
+    <div class="brand"><span class="brand-mark"><i class="fa-solid fa-bolt"></i></span><span>Menu</span></div>
+    <nav class="drawer-links">
+      <a href="#home">Home</a><a href="#services">Services</a><a href="#about">About</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+      <button id="closeMenu">Close menu</button>
+    </nav>
+  </aside>
+
+  <main id="home">
+    <section class="hero section">
+      <canvas class="hero-canvas" id="particleCanvas"></canvas>
+      <div class="container hero-card reveal">
+        <div class="hero-grid grid">
+          <div>
+            <span class="pill"><i class="fa-solid fa-sparkles"></i> Luxury glasspunk portfolio</span>
+            <h1>Android Senior Developer</h1>
+            <p>Bold mobile engineering, polished UX, and production-grade delivery for brands that want a premium digital presence. This layout is compact, energetic, and built to convert visitors into clients.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#contact"><i class="fa-solid fa-paper-plane"></i> Start a Project</a>
+              <a class="btn secondary" href="#work"><i class="fa-solid fa-layer-group"></i> View Showcase</a>
+            </div>
+          </div>
+          <div class="hero-panel glass">
+            <div class="grid" style="grid-template-columns:repeat(2,1fr);gap:14px">
+              <div class="card glass"><strong>10+</strong><p>Years of shipping apps, polished interfaces, and reliable releases.</p></div>
+              <div class="card glass"><strong>120+</strong><p>Features delivered across Android, Flutter, and modern web stacks.</p></div>
+              <div class="card glass"><strong>99%</strong><p>Focus on stability, accessibility, and scalable architecture.</p></div>
+              <div class="card glass"><strong>24/7</strong><p>Workflow momentum across design, build, test, and deploy.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container stats grid reveal">
+        <div class="stat glass"><b class="counter" data-target="48">0</b><span>Mobile launches</span></div>
+        <div class="stat glass"><b class="counter" data-target="36">0</b><span>Client handoffs</span></div>
+        <div class="stat glass"><b class="counter" data-target="18">0</b><span>Production systems</span></div>
+        <div class="stat glass"><b class="counter" data-target="8">0</b><span>Years focused on Android</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-title reveal"><div><h2>Core Services</h2><p>Card-based content with sharp hierarchy, premium spacing, and visually layered glass panels.</p></div></div>
+        <div class="cards grid">
+          <article class="card glass reveal"><i class="fa-solid fa-mobile-screen-button fa-2xl" style="color:var(--accent)"></i><h3>Android Engineering</h3><p>Jetpack Compose, Kotlin, MVVM, and app architecture tuned for maintainability, speed, and release confidence.</p><ul class="service-list"><li><i class="fa-solid fa-check"></i>Clean architecture</li><li><i class="fa-solid fa-check"></i>Performance tuning</li><li><i class="fa-solid fa-check"></i>Store-ready delivery</li></ul></article>
+          <article class="card glass reveal"><i class="fa-solid fa-flutter fa-2xl" style="color:var(--accent-2)"></i><h3>Flutter Experiences</h3><p>Cross-platform products with responsive layouts, reusable components, and consistent brand voice across devices.</p><ul class="service-list"><li><i class="fa-solid fa-check"></i>Mobile and web</li><li><i class="fa-solid fa-check"></i>Design systems</li><li><i class="fa-solid fa-check"></i>Animation polish</li></ul></article>
+          <article class="card glass reveal"><i class="fa-solid fa-rocket fa-2xl" style="color:var(--accent-3)"></i><h3>Portfolio & SaaS Builds</h3><p>Landing pages, personal branding websites, conversion sections, and deployment-friendly front-end systems.</p><ul class="service-list"><li><i class="fa-solid fa-check"></i>SEO structure</li><li><i class="fa-solid fa-check"></i>CI-ready code</li><li><i class="fa-solid fa-check"></i>High-end visuals</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container parallax reveal">
+        <span class="layer a" data-parallax="0.18"></span><span class="layer b" data-parallax="0.10"></span>
+        <div class="section-title"><div><h2>About the Brand</h2><p>Strong contrast, transparent surfaces, and luxury gold accents create the visual identity.</p></div></div>
+        <div class="grid media-row">
+          <div>
+            <p>Mo e-Kyaw-Aung-Portfolio V0012 is designed as a premium showcase for an Android Senior Developer who values craftsmanship, clarity, and execution. The interface blends luxury styling with practical sections for trust, offers, and conversion.</p>
+            <p>The layout stays compact, responsive, and accessible while still feeling dynamic through motion, depth, and micro-interactions.</p>
+          </div>
+          <div class="glass card">
+            <h3>Highlights</h3>
+            <ul class="service-list">
+              <li><i class="fa-solid fa-gem"></i>Glassmorphism UI with layered depth</li>
+              <li><i class="fa-solid fa-universal-access"></i>Keyboard-friendly and WCAG-aware interactions</li>
+              <li><i class="fa-solid fa-wand-magic-sparkles"></i>Luxury motion, carousel, counters, and fade-ins</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-title reveal"><div><h2>Featured Work</h2><p>Use the lightbox gallery to present app screenshots, mockups, or portfolio visuals.</p></div></div>
+        <div class="gallery grid">
+          <button class="reveal"><img src="https://picsum.photos/seed/app1/800/600" alt="Project preview 1"></button>
+          <button class="reveal"><img src="https://picsum.photos/seed/app2/800/600" alt="Project preview 2"></button>
+          <button class="reveal"><img src="https://picsum.photos/seed/app3/800/600" alt="Project preview 3"></button>
+          <button class="reveal"><img src="https://picsum.photos/seed/app4/800/600" alt="Project preview 4"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid media-row">
+        <div class="carousel glass reveal">
+          <div class="slides" id="slides">
+            <div class="slide"><img src="https://picsum.photos/seed/testimonial1/1200/700" alt="Client testimonial 1"><p>“The delivery felt premium, fast, and technically excellent.”</p></div>
+            <div class="slide"><img src="https://picsum.photos/seed/testimonial2/1200/700" alt="Client testimonial 2"><p>“A rare mix of design taste and engineering depth.”</p></div>
+            <div class="slide"><img src="https://picsum.photos/seed/testimonial3/1200/700" alt="Client testimonial 3"><p>“Clean code, smooth animations, and strong product thinking.”</p></div>
+          </div>
+          <div class="carousel-controls">
+            <button class="icon-btn" id="prevSlide" aria-label="Previous testimonial"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="icon-btn" id="nextSlide" aria-label="Next testimonial"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="glass card reveal">
+          <h3>Results Snapshot</h3>
+          <table class="table" aria-label="Project results">
+            <tr><th>Area</th><th>Outcome</th></tr>
+            <tr><td>App UX</td><td>Sharper flows</td></tr>
+            <tr><td>Delivery</td><td>Reliable releases</td></tr>
+            <tr><td>Brand</td><td>Luxury presence</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-title reveal"><div><h2>Pricing Plans</h2><p>Simple tiers for leads, sprint builds, and premium end-to-end delivery.</p></div></div>
+        <div class="price-grid grid">
+          <article class="price glass reveal"><h3>Starter</h3><div class="amount">$490</div><p>Landing page foundation with one-page conversion focus.</p><a class="btn secondary" href="#contact">Choose Starter</a></article>
+          <article class="price glass featured reveal"><span class="pill">Most Popular</span><h3>Growth</h3><div class="amount">$1,240</div><p>Multi-page build with premium motion, forms, and SEO structure.</p><a class="btn" href="#contact">Choose Growth</a></article>
+          <article class="price glass reveal"><h3>Signature</h3><div class="amount">$2,980</div><p>Full SaaS-level front-end system with custom sections and refinements.</p><a class="btn secondary" href="#contact">Choose Signature</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-title reveal"><div><h2>Frequently Asked Questions</h2><p>Accordion items use accessible buttons and ARIA-expanded states. [web:19][web:16]</p></div></div>
+        <div class="faq">
+          <div class="faq-item glass reveal"><button aria-expanded="false">Can this be edited for my own portfolio?<span>+</span></button><div class="faq-panel"><p>Yes. Replace the text, links, images, and contact details while keeping the structure intact.</p></div></div>
+          <div class="faq-item glass reveal"><button aria-expanded="false">Does it work well on mobile?<span>+</span></button><div class="faq-panel"><p>Yes. The layout collapses into a single-column flow with a sticky CTA for easier mobile action.</p></div></div>
+          <div class="faq-item glass reveal"><button aria-expanded="false">Is the code SEO-friendly?<span>+</span></button><div class="faq-panel"><p>Yes. It includes semantic HTML, metadata, readable headings, and structured sections for discovery.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container forms">
+        <form class="form glass reveal" id="contact">
+          <h2>Contact Form</h2>
+          <p class="helper">Validation is handled with accessible messaging and live feedback. [web:21][web:27]</p>
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" required><div class="error" id="nameError"></div></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required><div class="error" id="emailError"></div></div>
+          <div class="field"><label for="message">Project details</label><textarea id="message" name="message" rows="5" required></textarea><div class="error" id="messageError"></div></div>
+          <div class="error" id="formStatus" aria-live="assertive" aria-atomic="true"></div>
+          <button class="btn" type="submit"><i class="fa-solid fa-envelope"></i> Send Inquiry</button>
+        </form>
+
+        <div class="contact-card glass reveal">
+          <h2>Newsletter & Contact</h2>
+          <p class="helper">A newsletter sign-up keeps the lead flow compact and conversion-friendly.</p>
+          <div class="field"><label for="newsletter">Email for updates</label><input id="newsletter" type="email" placeholder="name@example.com"></div>
+          <button class="btn secondary" id="subscribeBtn">Subscribe</button>
+          <div style="height:18px"></div>
+          <h3>Visit Us</h3>
+          <iframe class="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?q=London%20England&key=YOUR_API_KEY" title="Google Maps location"></iframe>
+          <div style="height:18px"></div>
+          <div class="socials">
+            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid glass card reveal">
+        <h2>Sticky Action Area</h2>
+        <p>Designed for thumb-friendly conversion and fast access to the main inquiry flow on mobile. [web:23][web:26]</p>
+        <a class="btn" href="#contact">Book a Build Sprint</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid grid">
+      <div>
+        <h4>Moe-Kyaw-Aung-Portfolio V0012</h4>
+        <p class="helper">Bold, luxurious, and conversion-focused portfolio presence for an Android Senior Developer.</p>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <ul><li><a href="#home">Home</a></li><li><a href="#services">Services</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul><li>Android</li><li>Flutter</li><li>UI/UX</li><li>Deployment</li></ul>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <ul><li><a href="#">GitHub</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Moe-Kyaw-Aung-Portfolio V0012</span>
+      <span>Built with pure HTML, CSS, and vanilla JavaScript.</span>
+    </div>
+  </footer>
+
+  <button class="btn sticky-cta" id="stickyCta"><i class="fa-solid fa-bolt"></i> Start Project</button>
+  <button class="icon-btn back-top" id="backTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true"><img alt="Expanded preview" id="lightboxImg"></div>
+
+  <script>
+    const body=document.body,drawer=document.getElementById('drawer'),overlay=document.getElementById('overlay');
+    const menuBtn=document.getElementById('menuBtn'),closeMenu=document.getElementById('closeMenu'),themeToggle=document.getElementById('themeToggle');
+    const preloader=document.querySelector('.preloader'),backTop=document.getElementById('backTop'),stickyCta=document.getElementById('stickyCta');
+    const revealEls=[...document.querySelectorAll('.reveal')],faqItems=[...document.querySelectorAll('.faq-item')];
+    const slides=document.getElementById('slides'); let slideIndex=0;
+
+    const openMenu=()=>{drawer.classList.add('open');overlay.classList.add('show');body.classList.add('no-scroll')};
+    const hideMenu=()=>{drawer.classList.remove('open');overlay.classList.remove('show');body.classList.remove('no-scroll')};
+    menuBtn.onclick=openMenu; closeMenu.onclick=hideMenu; overlay.onclick=hideMenu;
+    document.querySelectorAll('.drawer a').forEach(a=>a.onclick=hideMenu);
+
+    const savedTheme=localStorage.getItem('theme')||'light';
+    document.documentElement.dataset.theme=savedTheme;
+    themeToggle.innerHTML=savedTheme==='dark'?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+    themeToggle.onclick=()=>{
+      const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
+      document.documentElement.dataset.theme=next; localStorage.setItem('theme',next);
+      themeToggle.innerHTML=next==='dark'?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+    };
+
+    window.addEventListener('load',()=>setTimeout(()=>preloader.classList.add('hide'),350));
+
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.14});
+    revealEls.forEach(el=>io.observe(el));
+
+    const counters=document.querySelectorAll('.counter');
+    const countIO=new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting)return;
+      counters.forEach(c=>{
+        const end=+c.dataset.target,step=Math.max(1,Math.floor(end/80)); let cur=0;
+        const t=setInterval(()=>{cur+=step; if(cur>=end){cur=end; clearInterval(t)} c.textContent=cur},18);
+      });
+      countIO.disconnect();
+    }),{threshold:.5});
+    countIO.observe(document.querySelector('.stats'));
+
+    faqItems.forEach(item=>{
+      const btn=item.querySelector('button');
+      btn.onclick=()=>{const open=item.classList.toggle('open'); btn.setAttribute('aria-expanded',open); btn.querySelector('span').textContent=open?'–':'+'};
+    });
+
+    function renderSlide(){slides.style.transform=`translateX(${-slideIndex*100}%)`}
+    document.getElementById('nextSlide').onclick=()=>{slideIndex=(slideIndex+1)%3; renderSlide()};
+    document.getElementById('prevSlide').onclick=()=>{slideIndex=(slideIndex+2)%3; renderSlide()};
+
+    const lightbox=document.getElementById('lightbox'),lightboxImg=document.getElementById('lightboxImg');
+    document.querySelectorAll('.gallery button img').forEach(img=>img.parentElement.onclick=()=>{lightboxImg.src=img.src; lightbox.classList.add('open')});
+    lightbox.onclick=()=>lightbox.classList.remove('open');
+
+    const form=document.getElementById('contact'),status=document.getElementById('formStatus');
+    form.onsubmit=e=>{
+      e.preventDefault(); let ok=true;
+      [['name','nameError','Name is required.'],['email','emailError','Enter a valid email.'],['message','messageError','Message is required.']].forEach(([id,err,msg])=>{
+        const el=document.getElementById(id), box=document.getElementById(err); box.textContent=''; el.setAttribute('aria-invalid','false');
+        if(!el.value.trim()||(id==='email'&&!/^[^s@]+@[^s@]+.[^s@]+$/.test(el.value))){box.textContent=msg; el.setAttribute('aria-invalid','true'); ok=false}
+      });
+      status.textContent=ok?'Your message is ready to send. Replace this demo handler with your backend endpoint.':'Please correct the highlighted fields and try again.';
+      if(ok)form.reset();
+    };
+
+    document.getElementById('subscribeBtn').onclick=()=>alert('Subscribed. Replace this demo handler with your email service integration.');
+    window.addEventListener('scroll',()=>{backTop.classList.toggle('show',window.scrollY>500)});
+    backTop.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+    stickyCta.onclick=()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+
+    const canvas=document.getElementById('particleCanvas'),ctx=canvas.getContext('2d');
+    let w,h,particles=[];
+    const resize=()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;particles=[...Array(Math.min(90,Math.floor(w/14)))].map(()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2.2+.5,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}))};
+    window.addEventListener('resize',resize); resize();
+    (function animate(){ctx.clearRect(0,0,w,h); particles.forEach(p=>{p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>w)p.vx*=-1; if(p.y<0||p.y>h)p.vy*=-1; ctx.beginPath(); ctx.fillStyle='rgba(212,168,67,.72)'; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill()}); requestAnimationFrame(animate)})();
+
+    document.querySelectorAll('[data-parallax]').forEach(el=>{
+      const speed=parseFloat(el.dataset.parallax);
+      window.addEventListener('scroll',()=>el.style.transform=`translateY(${window.scrollY*speed*-0.08}px)`);
+    });
+  </script>
+</body>
+</html>
