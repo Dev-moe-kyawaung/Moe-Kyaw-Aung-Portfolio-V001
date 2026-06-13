@@ -1,9 +1,9 @@
 const body = document.body;
+const preloader = document.getElementById('preloader');
 const cursor = document.getElementById('cursor');
 const themeButtons = document.querySelectorAll('[data-theme-toggle]');
 const yearEl = document.getElementById('year');
 const particleCanvas = document.getElementById('particleCanvas');
-const preloader = document.getElementById('preloader');
 
 window.addEventListener('load', () => {
   setTimeout(() => preloader?.classList.add('hide'), 700);
@@ -121,10 +121,12 @@ addEventListener('scroll', () => {
 
 document.querySelectorAll('form').forEach(form => {
   form.addEventListener('submit', e => {
+    e.preventDefault();
     if (!form.checkValidity()) {
-      e.preventDefault();
-      e.stopPropagation();
+      form.classList.add('was-validated');
+      return;
     }
-    form.classList.add('was-validated');
+    alert('Form submitted successfully.');
+    form.reset();
   });
 });
