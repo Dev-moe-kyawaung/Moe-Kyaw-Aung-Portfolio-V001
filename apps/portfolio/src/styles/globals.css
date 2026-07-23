@@ -1,0 +1,18 @@
+/* apps/portfolio/src/styles/globals.css */
+@import "tailwindcss";
+
+:root {
+  --bg: #0B1020;
+  --surface: #10192E;
+  --surface-2: #15233D;
+  --text: #EAF1FF;
+  --muted: #A8B4D1;
+  --border: #243454;
+  --brand: #4F8CFF;
+  --brand-2: #22D3EE;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
