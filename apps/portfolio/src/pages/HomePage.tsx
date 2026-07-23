@@ -13,18 +13,21 @@ export function HomePage() {
         { label: 'Focus', value: 'Performance' }
       ]}
       cards={[
-        { title: 'Hero project delivery', text: 'Showcase your strongest flagship project with a result-driven summary.' },
-        { title: 'Shared system design', text: 'Explain your reusable layout, UI tokens, and component architecture.' },
-        { title: 'Deployment ready', text: 'Highlight your CI/CD, hosting, and optimization workflow.' }
+        { title: 'Production-ready architecture', text: 'Clean layout boundaries, shared UI, and scalable route structure.' },
+        { title: 'Premium visual system', text: 'Layered gradients, glass cards, and a deep technical color palette.' },
+        { title: 'Senior positioning', text: 'Clear project showcases built to communicate credibility fast.' }
       ]}
     >
-      <section className="grid gap-6 md:grid-cols-3">
+      <section className="mt-12 grid gap-6 lg:grid-cols-3">
         {[
-          'Production-ready frontend architecture.',
-          'Mobile-first responsive design system.',
-          'Project showcase with senior technical credibility.'
+          'Mobile-first layout with strong reading rhythm.',
+          'Project showcase blocks with high visual polish.',
+          'SEO and performance considerations built into the structure.'
         ].map((item) => (
-          <div key={item} className="rounded-3xl border border-border bg-surface p-6 text-sm text-muted">
+          <div
+            key={item}
+            className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm leading-6 text-muted shadow-lg shadow-black/10 backdrop-blur"
+          >
             {item}
           </div>
         ))}
