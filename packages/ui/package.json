@@ -1,0 +1,16 @@
+// packages/ui/package.json
+{
+  "name": "@repo/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./button": "./src/components/button.tsx",
+    "./navigation": "./src/components/navigation.tsx",
+    "./layout": "./src/components/layout.tsx",
+    "./index": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
