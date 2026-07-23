@@ -1,0 +1,9 @@
+// packages/tailwind-config/package.json
+{
+  "name": "@repo/tailwind-config",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./preset": "./src/preset.ts"
+  }
+}
