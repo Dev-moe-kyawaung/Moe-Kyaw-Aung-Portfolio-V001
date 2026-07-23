@@ -1,0 +1,5 @@
+// packages/tailwind-config/tsconfig.json
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src"]
+}
